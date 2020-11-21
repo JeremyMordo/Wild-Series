@@ -15,6 +15,6 @@ class ProgramController extends AbstractController
     {
         return $this->render('program/index.html.twig', [
             'website' => 'Wild Séries',
-         ]);
+        ]);
     }
 }
