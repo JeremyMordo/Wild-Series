@@ -13,13 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProgramController extends AbstractController
 {
     /**
-     * @Route("/", name="_index")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
-        return $this->render('program/index.html.twig', [
-            'website' => 'Wild Séries',
-        ]);
+        return $this->render('program/index.html.twig');
     }
 
     /**

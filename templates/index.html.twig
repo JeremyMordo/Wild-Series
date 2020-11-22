@@ -1,3 +1,13 @@
 {% extends 'base.html.twig' %}
-        {% block title %}Welcome {% endblock %}
-        {% block body %}<h1>Welcome to {{ website }} !</h1>{% endblock %}
+        {% block title %}Bienvenue {% endblock %}
+        {% block body %}<h1>Bienvenue sur {{ website }} !</h1>
+                {# templates/index.html.twig #}
+                <a href="{{ path('wild_show', { 'slug': "american-horror-story" }) }}">
+                Testing show() method from WildController with a real program s slug.
+                </a>
+                <br>
+                <a href="{{ path('wild_index') }}">
+                Testing index() method from WildController to view all programs.
+                </a>
+        {% endblock %}
+
