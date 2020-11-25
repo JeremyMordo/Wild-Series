@@ -1,11 +1,10 @@
 {# templates/wild/show.html.twig #}
 {% extends 'base.html.twig' %}
 {% block title %} Catégorie {{ categoryName }}{% endblock %}
-
 {% block body %}
         <h1>Toutes les séries de la catégorie {{ categoryName }} : </h1>
         {% for program in programsByCategory %}
-                <h1 class="mt-0">{{ program.id }} / {{ program.title }}</h1>
+                <h1 class="mt-0">{{ program.id }} / <a href="{{ path('wild_show', {'slug': program.title })}}">{{ program.title }}</a></h1>
                 <p>{{ program.summary }}</p>
                 <p>Catégorie : {{ program.category.name }}</p>
         {% else %}

@@ -16,6 +16,7 @@
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/webpack-encore-bundle ###
+/migrations
 /node_modules/
 /public/build/
 npm-debug.log
