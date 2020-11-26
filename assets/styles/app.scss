@@ -1,10 +1,21 @@
 @import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 
 $theme-colors: (
   "primary": #C4C4C4,
   "secondary": #E5E5E5
 );
 
+header {
+  background-color: rgba(196, 196, 196, 0.35);
+}
+
+#navbarDropdown {
+  background-color: white;
+  border-radius: 1em;
+}
+
 body {
     background-color: #C4C4C4;
-}
+    font-family: 'Prata', serif;
+  }

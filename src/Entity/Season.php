@@ -52,18 +52,6 @@ class Season
         return $this->id;
     }
 
-    public function getProgramId(): ?int
-    {
-        return $this->program_id;
-    }
-
-    public function setProgramId(int $program_id): self
-    {
-        $this->program_id = $program_id;
-
-        return $this;
-    }
-
     public function getYear(): ?int
     {
         return $this->year;

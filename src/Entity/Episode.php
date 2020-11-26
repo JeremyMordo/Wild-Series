@@ -50,7 +50,6 @@ class Episode
         return $this->id;
     }
 
-
     public function getSeason()
     {
         return $this->season;

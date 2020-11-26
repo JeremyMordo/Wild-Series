@@ -5,46 +5,56 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Wild Séries</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Catégorie
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ path('wild_show_category', {'categoryName':"horreur"})}}">Catégorie Horror</a>
-          <a class="dropdown-item" href="#">Catégorie 2</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Séries
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ path('wild_index')}}">Toutes les séries</a>
-          <a class="dropdown-item" href="{{ path('wild_program', {'slug':"walking dead"})}}">Walking Dead</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Acteurs
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Acteur 1</a>
-          <a class="dropdown-item" href="#">Acteur 2</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Mes favoris</a>
-      </li>
-            <li class="nav-item">
-        <a class="nav-link" href="#">Deconnexion</a>
-      </li>
-            <li class="nav-item">
-        <a class="nav-link" href="#">Profil</a>
-      </li>
+    <ul class="navbar-nav d-flex justify-content-between w-100">
+      <div class="block1 d-flex">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Wild Séries</a>
+        </li>
+      </div>
+      <div class="block2 d-flex">
+        <li class="nav-item dropdown ml-5 mr-5">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Catégorie
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path('wild_show_category', {'categoryName':"horreur"})}}">Catégorie Horror</a>
+            <a class="dropdown-item" href="#">Catégorie 2</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown ml-5 mr-5">
+          <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Séries
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{{ path('wild_index')}}">Toutes les séries</a>
+            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"the haunting of hill house"})}}">The Haunting</a>
+            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"american horror story"})}}">American Horror Story</a>
+            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"love death and robots"})}}">Love Death And Robots</a>
+            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"penny dreadful"})}}">Penny Dreadful</a>
+            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"fear the walking dead"})}}">Fear the Walking Dead</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown ml-5 mr-5">
+          <a class="nav-link dropdown-toggle mr-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Acteurs
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Acteur 1</a>
+            <a class="dropdown-item" href="#">Acteur 2</a>
+          </div>
+        </li>
+      </div>
+      <div class="block3 d-flex">
+        <li class="nav-item ml-6">
+          <a class="nav-link" href="#">Mes favoris</a>
+        </li>
+              <li class="nav-item">
+          <a class="nav-link" href="#">Deconnexion</a>
+        </li>
+              <li class="nav-item">
+          <a class="nav-link" href="#">Profil</a>
+        </li>
+      </div>
     </ul>
   </div>
 </nav>
