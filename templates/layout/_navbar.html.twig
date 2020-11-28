@@ -17,8 +17,8 @@
             Catégorie
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('wild_show_category', {'categoryName':"horreur"})}}">Catégorie Horror</a>
-            <a class="dropdown-item" href="#">Catégorie 2</a>
+            <a class="dropdown-item" href="{{ path('category_index')}}">Toutes les catégories</a>
+            <a class="dropdown-item" href="{{ path('category_show', {'categoryName': "horreur" })}}">Catégorie Horror</a>
           </div>
         </li>
         <li class="nav-item dropdown ml-5 mr-5">
@@ -26,13 +26,13 @@
             Séries
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('wild_index')}}">Toutes les séries</a>
-            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"walking dead"})}}">The Walking Dead</a>
-            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"the haunting of hill house"})}}">The Haunting</a>
-            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"american horror story"})}}">American Horror Story</a>
-            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"love death and robots"})}}">Love Death And Robots</a>
-            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"penny dreadful"})}}">Penny Dreadful</a>
-            <a class="dropdown-item" href="{{ path('wild_program', {'slug':"fear the walking dead"})}}">Fear the Walking Dead</a>
+            <a class="dropdown-item" href="{{ path('programs_index')}}">Toutes les séries</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'id':"1"})}}">The Walking Dead</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'id':"2"})}}">The Haunting</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'id':"3"})}}">American Horror Story</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'id':"4"})}}">Love Death And Robots</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'id':"5"})}}">Penny Dreadful</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'id':"6"})}}">Fear the Walking Dead</a>
           </div>
         </li>
         <li class="nav-item dropdown ml-5 mr-5">

@@ -1,3 +1,15 @@
 {% extends 'base.html.twig' %}
         {% block title %} Program Index {% endblock %}
-        {% block body %}<h1> Program Index </h1>{% endblock %}
+        {% block body %}
+                <h1>Toutes les séries de la table program : </h1>
+        {% for program in programs %}
+                <div>
+                        <h2>{{ loop.index }} / <a href="{{ path('programs_show', {'id': program.id })}}">{{ program.title }}</a></h2>
+                        <p>{{ program.summary }}</p>
+                        <p>Catégorie : {{ program.category.name }}</p>
+                </div>
+        {% else %}
+                Aucune série trouvée.
+        {% endfor %}
+        <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+        {% endblock %}

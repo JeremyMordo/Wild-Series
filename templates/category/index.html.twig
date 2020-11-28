@@ -1,0 +1,10 @@
+{# templates/wild/show.html.twig #}
+{% extends 'base.html.twig' %}
+{% block title %} Liste des catégories {% endblock %}
+{% block body %}
+List des catégories :
+        {% for category in categories %}
+                <h4><a href="{{ path('category_show', {'categoryName': category.name})}}">{{ category.name }}</a></h4>
+        {% endfor %}
+        <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+{% endblock %}
