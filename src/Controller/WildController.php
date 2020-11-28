@@ -102,7 +102,7 @@ class WildController extends AbstractController
     * @Route("/program/{slug}", name="program")
     * @return Response
     */
-    public function showByProgram(string $slug): Response
+    public function showProgram(string $slug): Response
     {
         if (!$slug) {
             throw $this
@@ -132,22 +132,27 @@ class WildController extends AbstractController
     *   Show all details from a season
     *
     * @param int $id of the season
-    * @Route("/season/{id}", name="season")
+    * @Route("/program/{programId}/season/{seasonId}", name="program_season_show")
     * @return Response
     */
-    public function showBySeason(int $id): Response
+    public function showSeason(int $programId, int $seasonId): Response
     {
-        if (!$id) {
+        if (!$seasonId) {
             throw $this
                 ->createNotFoundException('No id has been sent to find a season in season\'s table.');
         }
         $season = $this->getDoctrine()
             ->getRepository(Season::class)
             ->findOneBy(
-                ['id' => $id]
+                ['id' => $seasonId]
             );
 
-        $program = $season->getProgram();
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy(
+                ['id' => $programId]
+            );    
+
         $episodes = $season->getEpisode();
 
         return $this->render('wild/showseason.html.twig', [
@@ -161,18 +166,31 @@ class WildController extends AbstractController
     *   Show all details from an episode
     *
     * @param Episode $episode
-    * @Route("/episode/{id}", name="episode")
+    * @Route("/program/{programId}/season/{seasonId}/episode/{episodeId}", name="program_season_episode_show")
     * @return Response
     */
-    public function showEpisode(Episode $episode): Response
+    public function showEpisode(int $programId, int $seasonId, int $episodeId): Response
     {
-        $season = $episode->getSeason();
-        $program = $season->getProgram();
+        $program = $this->getDoctrine()
+        ->getRepository(Program::class)
+        ->findOneBy(
+            ['id' => $programId]
+        );
+        $season = $this->getDoctrine()
+        ->getRepository(Season::class)
+        ->findOneBy(
+            ['id' => $seasonId]
+        );
+        $episode = $this->getDoctrine()
+        ->getRepository(Episode::class)
+        ->findOneBy(
+            ['id' => $episodeId]
+        );
 
         return $this->render('wild/showepisode.html.twig', [
             'season' => $season,
             'program' => $program,
-            'episode' => $episode,
+            'episode' => $episode, 
         ]);
     }
 }
