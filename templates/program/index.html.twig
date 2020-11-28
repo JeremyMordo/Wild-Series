@@ -4,7 +4,7 @@
                 <h1>Toutes les séries de la table program : </h1>
         {% for program in programs %}
                 <div>
-                        <h2>{{ loop.index }} / <a href="{{ path('programs_show', {'id': program.id })}}">{{ program.title }}</a></h2>
+                        <h2>{{ loop.index }} / <a href="{{ path('programs_show', {'programId': program.id })}}">{{ program.title }}</a></h2>
                         <p>{{ program.summary }}</p>
                         <p>Catégorie : {{ program.category.name }}</p>
                 </div>

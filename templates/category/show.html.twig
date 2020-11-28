@@ -4,7 +4,7 @@
 {% block body %}
         <h1>Toutes les séries de la catégorie {{ categoryName }} : </h1>
         {% for program in programs %}
-                {{ program.id }} / <a href="{{ path('programs_show', {'id': program.id})}}">{{ program.title }}</a>
+                {{ program.id }} / <a href="{{ path('programs_show', {'programId': program.id})}}">{{ program.title }}</a>
                 <p>{{ program.summary }}</p>
                 <p>Catégorie : {{ program.category.name }}</p>
         {% else %}

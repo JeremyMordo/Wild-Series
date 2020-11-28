@@ -8,8 +8,8 @@
                         <h5>Description de la saison :</h5>
                         <p>{{ season.description }}</p>
                         <h5>Liste des épisodes :</h5>
-                        {% for epi in episodes %}
-                                <p><a href="{{ path('programs_season_episode_show', {'programId': program.id, 'seasonId': season.id, 'episodeId': epi.id})}}">Episode {{ epi.number }} : {{ epi.title }}</a></p>
+                        {% for epi in episode %}
+                                <p><a href="{{ path('programs_episode_show', {'programId': program.id, 'seasonId': season.id, 'episodeId': epi.id})}}">Episode {{ epi.number }} : {{ epi.title }}</a></p>
                         {% endfor %}
                 </div>
         </div>
