@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block title %} Ajout Série{% endblock %}
+{% block body %}
+<h3> Ajouter une Série </h3>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type='submit' value='Ajouter une série'>
+        {{ form_end(form) }}
+{% endblock %}
