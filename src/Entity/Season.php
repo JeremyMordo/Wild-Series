@@ -47,6 +47,11 @@ class Season
      */
     private $episode;
 
+    public function __construct()
+    {
+        $this->episode = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

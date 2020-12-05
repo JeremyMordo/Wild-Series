@@ -41,7 +41,7 @@ class SeasonController extends AbstractController
             $entityManager->persist($season);
             $entityManager->flush();
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('season_index');
         }
 
         return $this->render('season/new.html.twig', [
@@ -73,7 +73,7 @@ class SeasonController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('season_index');
         }
 
         return $this->render('season/edit.html.twig', [
@@ -84,6 +84,7 @@ class SeasonController extends AbstractController
 
     /**
      * @Route("/{id}", name="delete", methods={"DELETE"})
+    * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"id": "id"}})
      */
     public function delete(Request $request, Season $season): Response
     {
@@ -93,6 +94,6 @@ class SeasonController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('index');
+        return $this->redirectToRoute('season_index');
     }
 }

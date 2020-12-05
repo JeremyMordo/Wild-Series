@@ -40,39 +40,19 @@ class Episode
      */
     private $summary;
 
-    public function __construct()
-    {
-        $this->season = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getSeason()
+    public function getSeason(): ?Season
     {
         return $this->season;
     }
 
-    public function addSeason(season $season): self
+    public function setSeason(?Season $season): self
     {
-        if (!$this->season->contains($season)) {
-            $this->season[] = $season;
-            $season->setEpisode($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSeason(season $season): self
-    {
-        if ($this->season->removeElement($season)) {
-            // set the owning side to null (unless already changed)
-            if ($season->getEpisode() === $this) {
-                $season->setEpisode(null);
-            }
-        }
+        $this->season = $season;
 
         return $this;
     }
