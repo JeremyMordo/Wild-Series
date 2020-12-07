@@ -12,6 +12,14 @@
                         <h5>Description de la saison :</h5>
                         <p>{{ season.description }}</p>
                         {% endfor %}
+                        <strong>Acteurs :</strong>
+                        <ul>
+                                {% for actor in program.actors %}
+                                <li><a href="{{ path('actor_show', {'id': actor.id})}}">{{ actor.name }}</a></li>
+                                {% else %}
+                                <li>Aucun acteur pour cette série</li>
+                                {% endfor %}
+                        </ul>
                 </div>
         </div>
         <a href="{{ path('app_index') }}">Retour à l'accueil</a>
