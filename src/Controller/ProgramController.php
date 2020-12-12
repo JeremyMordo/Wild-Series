@@ -12,6 +12,7 @@ use App\Entity\Category;
 use App\Entity\Season;
 use App\Entity\Episode;
 use App\Form\ProgramType;
+use App\Service\Slugify;
 
 
 /**
@@ -42,28 +43,29 @@ class ProgramController extends AbstractController
      * The controller for the category add form
      *
      * @Route("/new", name="new")
+     * @param Slugify $slugify
+     * @param Request $request
+     * @return Response
      */
-    public function new(Request $request) : Response
+    public function new(Request $request, Slugify $slugify) : Response
     {
-        // Create a new Program Object
         $program = new Program();
-        // Create the associated Form
+
         $form = $this->createForm(ProgramType::class, $program);
-        // Get data from HTTP request
         $form->handleRequest($request);
-        // Was the form submitted ?
+
         if ($form->isSubmitted() && $form->isValid()) {
-            // Deal with the submitted data
-            // Get the Entity Manager
             $entityManager = $this->getDoctrine()->getManager();
-            // Persist Category Object
+
+            $slug = $slugify->generate($program->getTitle());        
+            $program->setSlug($slug);
+            
             $entityManager->persist($program);
-            // Flush the persisted object
+
             $entityManager->flush();
-            // Finally redirect to categories list
+
             return $this->redirectToRoute('programs_index');
         }
-        // Render the form
         return $this->render('program/new.html.twig', [
             "form" => $form->createView(),
         ]);
@@ -72,8 +74,8 @@ class ProgramController extends AbstractController
     /**
     *   Getting a program with a formatted slug for title
     *
-    * @Route("/{programId}", name="show")
-    * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
+    * @Route("/{slug}", name="show")
+    * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
     * @return Response
     */
     public function show(Program $program):Response
