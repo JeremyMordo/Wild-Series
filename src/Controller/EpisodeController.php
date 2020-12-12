@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Slugify;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 /**
  * @Route("/episode", name="episode_")
@@ -22,16 +24,18 @@ class EpisodeController extends AbstractController
      */
     public function index(EpisodeRepository $episodeRepository): Response
     {
+        $episode = new Episode();
+        $season = $episode->getSeason();
+
         return $this->render('episode/index.html.twig', [
-            'episodes' => $episodeRepository->findAll(),
-        ]);
+        'episodes' => $episodeRepository->findAll(), 'season' => $season]);
     }
 
     /**
      * @Route("/new", name="new", methods={"GET","POST"})
      * @param Slugify $slugify
      */
-    public function new(Request $request, Slugify $slugify): Response
+    public function new(Request $request, Slugify $slugify, MailerInterface $mailer): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -43,9 +47,17 @@ class EpisodeController extends AbstractController
             $slug = $slugify->generate($episode->getTitle());        
             $episode->setSlug($slug);
 
+            $season=$episode->getSeason();
             $entityManager->persist($episode);
             $entityManager->flush();
 
+            $email = (new Email())
+                ->from($this->getParameter('mailer_from'))
+                ->to('your_email@example.com')
+                ->subject('Un nouvel épisode vient d\'être publié !')
+                ->html($this->renderView('episode/newEpisodeEmail.html.twig', ['episode' => $episode, "season" => $season]));
+
+            $mailer->send($email);
             return $this->redirectToRoute('episode_index');
         }
 
@@ -62,8 +74,7 @@ class EpisodeController extends AbstractController
     public function show(Episode $episode): Response
     {
         return $this->render('episode/show.html.twig', [
-            'episode' => $episode,
-        ]);
+            'episode' => $episode]);
     }
 
     /**

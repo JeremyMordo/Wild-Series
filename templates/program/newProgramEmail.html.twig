@@ -1,0 +1,6 @@
+{% extends 'email/layoutemail.html.twig' %}
+{% block body %}
+    <h1>Une nouvelle série a été créée</h1>
+    <p>Salut, la série <strong>{{ program.title }}</strong> a été créée sur Wild Séries</p>
+    <p>Description : {{program.summary }}
+{% endblock %}
