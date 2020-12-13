@@ -29,9 +29,9 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{ path('programs_index')}}">Toutes les séries</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"walking-dead"})}}">The Walking Dead</a>
-            <a class="dropdown-item" href="{{ path('programs_show', {'slug':"the-haunting"})}}">The Haunting</a>
-            <a class="dropdown-item" href="{{ path('programs_show', {'slug':"amrican-horror-story"})}}">American Horror Story</a>
-            <a class="dropdown-item" href="{{ path('programs_show', {'slug':"love-death-and-robot"})}}">Love Death And Robots</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'slug':"the-haunting-of-hill-house"})}}">The Haunting</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'slug':"american-horror-story"})}}">American Horror Story</a>
+            <a class="dropdown-item" href="{{ path('programs_show', {'slug':"love-death-and-robots"})}}">Love Death And Robots</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"penny-dreadful"})}}">Penny Dreadful</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"fear-the-walking-dead"})}}">Fear the Walking Dead</a>
             <a class="dropdown-item" href="{{ path('programs_new')}}">Créer une série</a>
@@ -55,12 +55,18 @@
         <li class="nav-item ml-6">
           <a class="nav-link" href="#">Mes favoris</a>
         </li>
-              <li class="nav-item">
-          <a class="nav-link" href="#">Deconnexion</a>
+        {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{ app.user.email }}</a>
+        </li>        
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_logout') }}"> Se déconnecter</a>
         </li>
-              <li class="nav-item">
-          <a class="nav-link" href="#">Profil</a>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_login')}}">Connection</a>
         </li>
+        {% endif %}
       </div>
     </ul>
   </div>

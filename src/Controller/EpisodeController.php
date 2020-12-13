@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Episode;
+use App\Entity\Comment;
 use App\Form\EpisodeType;
+use App\Form\CommentType;
 use App\Repository\EpisodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -68,13 +70,40 @@ class EpisodeController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="show", methods={"GET"})
+     * @Route("/{slug}", name="show", methods={"GET","POST"})
      * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"slug": "slug"}})
      */
-    public function show(Episode $episode): Response
+    public function show(Episode $episode, Request $request): Response
     {
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            
+            $user = $this->getUser();
+            $comment->setAuthor($user);
+            $comment->setEpisode($episode);
+
+            $comment=$episode->getComments();
+
+            $entityManager->flush();
+            
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+
+        }
+        $comments = $this->getDoctrine()
+        ->getRepository(Comment::class)
+        ->findBy(
+            ['episode' => $episode],
+        );
+
         return $this->render('episode/show.html.twig', [
-            'episode' => $episode]);
+            'episode' => $episode, 'comments' => $comments, "form" => $form->createView()]);
     }
 
     /**
@@ -97,6 +126,7 @@ class EpisodeController extends AbstractController
             return $this->redirectToRoute('episode_index');
         }
 
+            
         return $this->render('episode/edit.html.twig', [
             'episode' => $episode,
             'form' => $form->createView(),
