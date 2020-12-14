@@ -20,6 +20,9 @@
                                 <li>Aucun acteur pour cette série</li>
                                 {% endfor %}
                         </ul>
+                        {% if is_granted("ROLE_ADMIN") %}
+                                <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
+                        {% endif %}
                 </div>
         </div>
         <a href="{{ path('app_index') }}">Retour à l'accueil</a>

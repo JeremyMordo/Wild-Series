@@ -5,8 +5,10 @@ namespace App\DataFixtures;
 use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Persistence\ObjectManager;
 use App\Service\Slugify;
+use App\Entity\User;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -54,11 +56,13 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     {
         $i= 0;
         $slug = new Slugify;
-        foreach(self::PROGRAMS as $title => $data) {
+        $user = new User;
+            foreach(self::PROGRAMS as $title => $data) {
             $program = new Program();
             $program->setTitle($title);
             $program->setSlug($slug->generate($title));
             $program->setSummary($data['summary']);
+            $program->setOwner($user[0]);
             $program->setCategory($this->getReference('category_4'));
             $this->addReference('program_' . $i, $program);
             $manager->persist($program);

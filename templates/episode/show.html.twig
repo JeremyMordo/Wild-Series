@@ -31,6 +31,15 @@
         <tr>
             <th>Commentaire de {{ comment.author.email }}</th>
             <td>{{comment.comment}}</td>
+            <td>
+                {% if is_granted("ROLE_ADMIN") or app.user is same as comment.author %}
+                    <form method="post" action="{{ path('episode_deleteComment', {'slug' : comment.episode.slug, 'id': comment.id}) }}" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                    <button class="btn">Delete</button>
+                    </form>        
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <th>Note</th>
@@ -39,7 +48,7 @@
     </tbody>
 </table>
 {% endfor %}
-        {% if app.user %}
+        {% if is_granted("ROLE_CONTRIBUTOR") %}
             {{ include('episode/_formcomment.html.twig') }}
         {% endif %}
     <a href="{{ path('episode_index') }}">back to list</a>

@@ -91,10 +91,8 @@ class EpisodeController extends AbstractController
             $comment=$episode->getComments();
 
             $entityManager->flush();
-            
-            $comment = new Comment();
-            $form = $this->createForm(CommentType::class, $comment);
 
+            return $this->redirectToRoute("episode_show", ['slug' => $episode->getSlug()]);
         }
         $comments = $this->getDoctrine()
         ->getRepository(Comment::class)
@@ -104,6 +102,22 @@ class EpisodeController extends AbstractController
 
         return $this->render('episode/show.html.twig', [
             'episode' => $episode, 'comments' => $comments, "form" => $form->createView()]);
+    }
+
+    /**
+    * @Route("/{slug}/{id}", name="deleteComment", methods={"DELETE"})
+    * @ParamConverter("comment", class="App\Entity\Comment", options={"mapping": {"id": "id"}})
+    * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"slug": "slug"}})
+     */
+    public function deleteComment(Request $request, Comment $comment, Episode $episode) 
+    {
+        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($comment);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute("episode_show", ['slug' => $episode->getSlug()]);
     }
 
     /**

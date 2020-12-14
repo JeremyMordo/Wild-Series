@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Entity\Program;
+use App\Entity\User;
 use App\Entity\Category;
 use App\Entity\Season;
 use App\Entity\Episode;
@@ -25,6 +27,7 @@ class ProgramController extends AbstractController
 {
     /**
      * @Route("/", name="index")
+     * @
      */
     public function index(): Response
     {
@@ -64,6 +67,8 @@ class ProgramController extends AbstractController
             
             $entityManager->persist($program);
 
+            $program->setOwner($this->getUser());
+
             $entityManager->flush();
 
             $email = (new Email())
@@ -80,6 +85,35 @@ class ProgramController extends AbstractController
             "form" => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{slug}/edit", name="edit", methods={"GET", "POST"})
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
+     * @return Response
+     */
+    public function edit(Request $request, Program $program): Response
+    {
+        $form = $this->createForm(ProgramType::class, $program);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('program_index');
+        }
+
+        if (!($this->getUser() == $program->getOwner())) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw new AccessDeniedException('Only the owner can edit the program!');
+        }
+        
+        return $this->render('program/edit.html.twig', [
+            'program' => $program,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
 
     /**
     *   Getting a program with a formatted slug for title
