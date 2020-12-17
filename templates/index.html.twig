@@ -1,4 +1,15 @@
 {% extends 'base.html.twig' %}
         {% block title %}{{ website }}{% endblock %}
-        {% block body %}<h1>{{ website }} !</h1>
+        {% block body %}
+        <h1>Bienvenue sur {{ website }}!</h1>
+        <p> Pour profiter des foncitonnalités de notre site, veuillez vous connecter. </p>
+        {% if app.user %}
+        <h1>Les dernières séries : </h1>
+        {% for program in programs %}
+                <div>
+                        <h2><a href="{{ path('programs_show', {'slug': program.slug })}}">{{ program.title }}</a></h2>
+                        <p>{{ program.summary }}</p>
+                </div>
+        {% endfor %}
+        {% endif %}
         {% endblock %}
