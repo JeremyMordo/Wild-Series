@@ -2,9 +2,13 @@
         {% block title %} Program Index {% endblock %}
         {% block body %}
                 <h1>Toutes les séries de la table program : </h1>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button>Search</button>
+                {{ form_end(form) }}
         {% for program in programs %}
                 <div>
-                        <h2>{{ loop.index }} / <a href="{{ path('programs_show', {'slug': program.slug })}}">{{ program.title }}</a></h2>
+                        <h2 class="pt-3">{{ loop.index }} / <a href="{{ path('programs_show', {'slug': program.slug })}}">{{ program.title }}</a></h2>
                         <p>{{ program.summary }}</p>
                         <p>Catégorie : {{ program.category.name }}</p>
                 </div>

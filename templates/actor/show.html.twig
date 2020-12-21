@@ -13,8 +13,10 @@
             </tr>
             <tr>
                 <th>Joue dans les séries suivantes :</th>
-                {% for actor in actor.programs %}
-                <td><a href="{{ path('programs_show', {'programId': actor.id})}}"</a>{{ actor.title }}</td>
+                {% for program in actor.programs %}
+                <td>
+                    <a href="{{ path('programs_show', {'slug': program.slug }) }}">{{ program.title }}</a>
+                    </td>
                 {% endfor %}
             </tr>
         </tbody>
