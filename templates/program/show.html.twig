@@ -5,6 +5,11 @@
                 <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
                 <div class="media-body">
                         <h1 class="mt-0">{{ program.title }}</h1>
+                {% if app.user %}
+                <a id="watchlist">
+                        <i id="watchlistIcon" class="{{ app.user.isInWatchlist(program) ? 'fas' : 'far' }} fa-heart watchlist" data-href="{{ path("programs_watchlist", { "id": program.id}) }}"></i>
+                </a>
+                {% endif %}
                         <p>{{ program.summary }}</p>
                         <p>Catégorie : {{ program.category.name }}</p>
                         {% for season in seasons %}
@@ -26,4 +31,8 @@
                 </div>
         </div>
         <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+{% endblock %}
+{% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('watchlist') }}
 {% endblock %}

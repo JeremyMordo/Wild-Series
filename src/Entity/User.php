@@ -47,12 +47,22 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Program::class, mappedBy="owner")
      */
     private $programs;
-    
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = true;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Program::class)
+     */
+    private $watchlist;
+
     public function __construct()
     {
-        $this->author = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->programs = new ArrayCollection();
+        $this->watchlist = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,5 +201,51 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    /**
+     * @return Collection|Program[]
+     */
+    public function getWatchlist(): Collection
+    {
+        return $this->watchlist;
+    }
+
+    public function addWatchlist(Program $watchlist): self
+    {
+        if (!$this->watchlist->contains($watchlist)) {
+            $this->watchlist[] = $watchlist;
+        }
+
+        return $this;
+    }
+
+    public function removeWatchlist(Program $watchlist): self
+    {
+        $this->watchlist->removeElement($watchlist);
+
+        return $this;
+    }
+
+    public function isInWatchlist(Program $program): bool
+    {
+        return $this->watchlist->contains($program);
     }
 }

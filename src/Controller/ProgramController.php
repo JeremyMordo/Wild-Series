@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Program;
 use App\Entity\User;
 use App\Entity\Category;
@@ -199,4 +200,27 @@ class ProgramController extends AbstractController
 
         return $this->redirectToRoute('program_index');
     }
+
+    /**
+     * @Route("/{id}/watchlist", name="watchlist", methods={"GET","POST"})
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"id": "id"}})
+     * @param Program $program
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    public function addToWatchlist(Request $Request, Program $program, EntityManagerInterface $entityManager): Response
+        {
+            if ($this->getUser()->getWatchlist()->contains($program)) {
+                $this->getUser()->removeWatchlist($program);
+            }
+            else {
+                $this->getUser()->addWatchlist($program);
+            }
+    
+            $entityManager->flush();
+    
+            return $this->json([
+                'isInWatchlist' => $this->getUser()->isInWatchlist($program)
+            ]);
+        }
 }

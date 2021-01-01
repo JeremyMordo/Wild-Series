@@ -35,3 +35,6 @@ $(document).ready(function() {
 const logoPath = require('./images/logo.png');
 
 let html = `<img src="${logoPath}" alt="ACME logo">`;
+
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require('@fortawesome/fontawesome-free/js/all.js');
