@@ -19,6 +19,7 @@ use App\Service\Slugify;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Form\SearchProgramFormType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
@@ -81,6 +82,8 @@ class ProgramController extends AbstractController
 
             $entityManager->flush();
 
+            $this->addFlash('success', 'La série a été créée');
+
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to('your_email@example.com')
@@ -109,7 +112,9 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('program_index');
+            $this->addFlash('success', 'La série a été modifié');
+
+            return $this->redirectToRoute('programs_index');
         }
 
         if (!($this->getUser() == $program->getOwner())) {
@@ -176,5 +181,22 @@ class ProgramController extends AbstractController
             'program' => $program,
             'episode' => $episode, 
         ]);
+    }
+
+    /**
+     * @Route("/{id}", name="delete", methods={"DELETE"})
+    * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"id": "id"}})
+     */
+    public function delete(Request $request, Program $program): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($program);
+            $entityManager->flush();
+
+            $this->addFlash('danger', 'La série a été supprimée');
+        }
+
+        return $this->redirectToRoute('program_index');
     }
 }

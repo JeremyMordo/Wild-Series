@@ -53,6 +53,8 @@ class EpisodeController extends AbstractController
             $entityManager->persist($episode);
             $entityManager->flush();
 
+            $this->addFlash('success', 'L\'épisode a été créé');
+
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to('your_email@example.com')
@@ -92,6 +94,8 @@ class EpisodeController extends AbstractController
 
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le commentaire a été créé');
+
             return $this->redirectToRoute("episode_show", ['slug' => $episode->getSlug()]);
         }
         $comments = $this->getDoctrine()
@@ -115,6 +119,8 @@ class EpisodeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($comment);
             $entityManager->flush();
+
+            $this->addFlash('danger', 'Le commentaire a été supprimé');
         }
 
         return $this->redirectToRoute("episode_show", ['slug' => $episode->getSlug()]);
@@ -135,6 +141,8 @@ class EpisodeController extends AbstractController
 
             $slug = $slugify->generate($episode->getTitle());        
             $episode->setSlug($slug);
+
+            $this->addFlash('success', 'L\'épisode a été modifié');
             
             $this->getDoctrine()->getManager()->flush();
 
@@ -158,6 +166,8 @@ class EpisodeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($episode);
             $entityManager->flush();
+
+            $this->addFlash('danger', 'L\'épisode a été supprimé');
         }
 
         return $this->redirectToRoute('episode_index');

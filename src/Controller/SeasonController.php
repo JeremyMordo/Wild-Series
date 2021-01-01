@@ -40,6 +40,8 @@ class SeasonController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($season);
             $entityManager->flush();
+            
+            $this->addFlash('success', 'La saison a été créée');
 
             return $this->redirectToRoute('season_index');
         }
@@ -92,6 +94,8 @@ class SeasonController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($season);
             $entityManager->flush();
+
+            $this->addFlash('danger', 'La saison a été supprimée');
         }
 
         return $this->redirectToRoute('season_index');
