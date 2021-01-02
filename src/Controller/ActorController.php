@@ -64,6 +64,7 @@ class ActorController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+    * @ParamConverter("actor", class="App\Entity\Actor", options={"mapping": {"id": "id"}})
      */
     public function edit(Request $request, Actor $actor): Response
     {
