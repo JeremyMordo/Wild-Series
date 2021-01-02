@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% block title %} Catégorie {{ categoryName }}{% endblock %}
 {% block body %}
-        <h1>Toutes les séries de la catégorie {{ categoryName }} : </h1>
+        <h1>{{ 'all-program-from-category'|trans }} {{ categoryName }} : </h1>
         {% for program in programs %}
                 {{ program.id }} / <a href="{{ path('programs_show', {'slug': program.slug})}}">{{ program.title }}</a>
                 <p>{{ program.summary }}</p>
-                <p>Catégorie : {{ program.category.name }}</p>
+                <p>{{ 'category'|trans }} : {{ program.category.name }}</p>
         {% else %}
-                Aucune série trouvée.
+                {{ 'no-program'|trans }}.
         {% endfor %}
-        <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+        <a href="{{ path('app_index') }}">{{ 'back-home'|trans }}</a>
 {% endblock %}

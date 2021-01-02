@@ -2,6 +2,10 @@
 
 {% block title %}Mon profil{% endblock %}
 
-{% block body %}
-<p> Bonjour {{ user.email }}, bienvenue sur votre profil !
+{% block body %} 
+    {% if app.user %}
+        {% trans with {'%username%': app.user.email} %}
+            hello_username
+        {% endtrans %} !
+    {% endif %}
 {% endblock %}

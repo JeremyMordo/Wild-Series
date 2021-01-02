@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block title %} Liste des catégories {% endblock %}
+{% block title %} {{ 'category-list'|trans }} {% endblock %}
 {% block body %}
-List des catégories :
+{{ 'category-list'|trans }} :
         {% for category in categories %}
                 <h4><a href="{{ path('category_show', {'categoryName': category.name})}}">{{ category.name }}</a></h4>
         {% endfor %}
-        <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+        <a href="{{ path('app_index') }}">{{ 'back-home'|trans }}</a>
 {% endblock %}

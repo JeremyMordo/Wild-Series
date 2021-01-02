@@ -14,57 +14,59 @@
       <div class="block2 d-flex">
         <li class="nav-item dropdown ml-5 mr-5">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Catégorie
+            {{ 'categories'|trans }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('category_index')}}">Toutes les catégories</a>
-            <a class="dropdown-item" href="{{ path('category_show', {'categoryName': "horreur" })}}">Catégorie Horror</a>
-            <a class="dropdown-item" href="{{ path('category_new')}}">Créer une catégorie</a>
+            <a class="dropdown-item" href="{{ path('category_index')}}">{{ 'all-category'|trans }}</a>
+            <a class="dropdown-item" href="{{ path('category_show', {'categoryName': "horreur" })}}">{{ 'category-horror'|trans }}</a>
+            <a class="dropdown-item" href="{{ path('category_new')}}">{{ 'create-category'|trans }}</a>
           </div>
         </li>
         <li class="nav-item dropdown ml-5 mr-5">
           <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Séries
+            {{ 'program'|trans }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('programs_index')}}">Toutes les séries</a>
+            <a class="dropdown-item" href="{{ path('programs_index')}}">{{ 'all-program'|trans }}</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"walking-dead"})}}">The Walking Dead</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"the-haunting-of-hill-house"})}}">The Haunting</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"american-horror-story"})}}">American Horror Story</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"love-death-and-robots"})}}">Love Death And Robots</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"penny-dreadful"})}}">Penny Dreadful</a>
             <a class="dropdown-item" href="{{ path('programs_show', {'slug':"fear-the-walking-dead"})}}">Fear the Walking Dead</a>
-            <a class="dropdown-item" href="{{ path('programs_new')}}">Créer une série</a>
-            <a class="dropdown-item" href="{{ path('season_new')}}">Créer une saison</a>
-            <a class="dropdown-item" href="{{ path('episode_new')}}">Créer un episode</a>
-            <a class="dropdown-item" href="{{ path('season_index')}}">Voir les saisons</a>
-            <a class="dropdown-item" href="{{ path('episode_index')}}">Voir les episodes</a>
+            <a class="dropdown-item" href="{{ path('programs_new')}}">{{ 'create-program'|trans }}</a>
+            <a class="dropdown-item" href="{{ path('season_new')}}">{{ 'create-season'|trans }}</a>
+            <a class="dropdown-item" href="{{ path('episode_new')}}">{{ 'create-episode'|trans }}</a>
+            <a class="dropdown-item" href="{{ path('season_index')}}">{{ 'see-all-seasons'|trans }}</a>
+            <a class="dropdown-item" href="{{ path('episode_index')}}">{{ 'see-all-episode'|trans }}</a>
           </div>
         </li>
         <li class="nav-item dropdown ml-5 mr-5">
           <a class="nav-link dropdown-toggle mr-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Acteurs
+            {{ 'actors'|trans }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{path('actor_index')}}">Tout les acteurs/actrices</a>
+            <a class="dropdown-item" href="{{path('actor_index')}}">{{ 'all-actors'|trans }}</a>
             <a class="dropdown-item" href="#"></a>
           </div>
         </li>
       </div>
       <div class="block3 d-flex">
+        <a class="nav-link" href="{{ path('app_index', {'_locale':'fr'}) }}">FR</a>
+        <a class="nav-link" href="{{ path('app_index', {'_locale':'en'}) }}">EN</a>
         <li class="nav-item ml-6">
-          <a class="nav-link" href="#">Mes favoris</a>
+          <a class="nav-link" href="#">{{ 'favorites'|trans }}</a>
         </li>
         {% if app.user %}
         <li class="nav-item">
           <a class="nav-link" href="{{ path('app_profil')}}">Mon Compte</a>
         </li>        
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_logout') }}"> Se déconnecter</a>
+          <a class="nav-link" href="{{ path('app_logout') }}">{{ 'account.logout'|trans }}</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_login')}}">Connection</a>
+          <a class="nav-link" href="{{ path('app_login')}}">{{ 'account.login'|trans }}</a>
         </li>
         {% endif %}
       </div>

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
-        {% block title %} Program Index {% endblock %}
+        {% block title %}{{ 'program-home'|trans }}{% endblock %}
         {% block body %}
-                <h1>Toutes les séries de la table program : </h1>
+                <h1>{{ 'all-programs'|trans }} : </h1>
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 <button>Search</button>
@@ -10,10 +10,10 @@
                 <div>
                         <h2 class="pt-3">{{ loop.index }} / <a href="{{ path('programs_show', {'slug': program.slug })}}">{{ program.title }}</a></h2>
                         <p>{{ program.summary }}</p>
-                        <p>Catégorie : {{ program.category.name }}</p>
+                        <p>{{ 'category'|trans }} : {{ program.category.name }}</p>
                 </div>
         {% else %}
                 Aucune série trouvée.
         {% endfor %}
-        <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+        <a href="{{ path('app_index') }}">{{ 'back-home'|trans }}</a>
         {% endblock %}

@@ -11,13 +11,13 @@
                 </a>
                 {% endif %}
                         <p>{{ program.summary }}</p>
-                        <p>Catégorie : {{ program.category.name }}</p>
+                        <p>{{ 'category'|trans }} : {{ program.category.name }}</p>
                         {% for season in seasons %}
                         <h3 class="mt-0"><a href="{{ path('programs_season_show', {'programId': program.id, 'seasonId': season.id})}}">Saison {{ season.number }}</a></h3>
-                        <h5>Description de la saison :</h5>
+                        <h5>{{ 'season-summary'|trans }} :</h5>
                         <p>{{ season.description }}</p>
                         {% endfor %}
-                        <strong>Acteurs :</strong>
+                        <strong>{{ 'actors'|trans }} :</strong>
                         <ul>
                                 {% for actor in program.actors %}
                                 <li><a href="{{ path('actor_show', {'id': actor.id})}}">{{ actor.name }}</a></li>
@@ -26,11 +26,11 @@
                                 {% endfor %}
                         </ul>
                         {% if is_granted("ROLE_CONTRIBUTOR") %}
-                                <a href="{{ path('programs_edit', { 'slug': program.slug} ) }}">Éditer</a>
+                                <a href="{{ path('programs_edit', { 'slug': program.slug} ) }}">{{ 'update'|trans }}</a>
                         {% endif %}
                 </div>
         </div>
-        <a href="{{ path('app_index') }}">Retour à l'accueil</a>
+        <a href="{{ path('app_index') }}">{{ 'back-home'|trans }}</a>
 {% endblock %}
 {% block javascripts %}
         {{ parent() }}

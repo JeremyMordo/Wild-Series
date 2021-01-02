@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Episode{% endblock %}
+{% block title %}{{ 'update-episode'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Episode</h1>
+    <h1>{{ 'update-episode'|trans }}</h1>
 
     {{ include('episode/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('episode_index') }}">back to list</a>
+    <a href="{{ path('episode_index') }}">{{ 'back-home'|trans }}</a>
 
     {{ include('episode/_delete_form.html.twig') }}
 {% endblock %}
