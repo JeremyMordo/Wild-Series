@@ -17,9 +17,7 @@
             {{ 'categories'|trans }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('category_index')}}">{{ 'all-category'|trans }}</a>
-            <a class="dropdown-item" href="{{ path('category_show', {'categoryName': "horreur" })}}">{{ 'category-horror'|trans }}</a>
-            <a class="dropdown-item" href="{{ path('category_new')}}">{{ 'create-category'|trans }}</a>
+            {{render(controller('App\\Controller\\DefaultController::navbarTop'))}}
           </div>
         </li>
         <li class="nav-item dropdown ml-5 mr-5">

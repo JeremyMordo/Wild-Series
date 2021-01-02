@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Program;
+use App\Repository\CategoryRepository;
 
 class DefaultController extends AbstractController
 {
@@ -23,6 +24,13 @@ class DefaultController extends AbstractController
         return $this->render('index.html.twig', [
             'website' => 'Wild Séries',
             'programs' => $programs,
+        ]);
+    }
+
+    public function navbarTop(CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('layout/navbartop.html.twig', [
+            'categories' => $categoryRepository->findBy([], ['id' => 'DESC'])
         ]);
     }
 }
